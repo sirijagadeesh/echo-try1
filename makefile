@@ -19,11 +19,7 @@ tidy: vet
 	@go mod verify
 .PHONY: tidy
 
-install: tidy
-	@go install
-.PHONY: install
-
-lint: install
+lint: tidy
 	@golangci-lint run --enable-all --tests=false ./...
 .PHONY: lint
 
@@ -33,7 +29,7 @@ test: lint
 
 build: test
 	@CGO_ENABLED=0 go build -o $(BINARY_NAME) example.com/echo/try1
-.PHONY: test
+.PHONY: build
 
 run: build
 	@echo "--------- running code ---------"
@@ -44,3 +40,4 @@ image: test
 	@echo "-------- docker image building ------"
 	echo $(DOCKER_TAG)
 	docker build -f build/package/docker/Dockerfile -t $(BINARY_NAME):$(DOCKER_TAG) .
+.PHONY: image
