@@ -14,5 +14,5 @@ WORKDIR /app
 USER 1000:1000
 ENV TZ America/Chicago
 COPY --from=builder --chown=1000:1000 /app/echotry1 .
-EXPOSE 8080
+ENV PORT 8080
 CMD ["./echotry1"]

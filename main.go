@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -20,8 +22,13 @@ func main() {
 	ech.GET("/", hello)
 	ech.GET("/{name}", hello)
 
+	port, err := strconv.Atoi(os.Getenv("PORT"))
+	if err != nil {
+		ech.Logger.Fatalf("PORT should be integer :: %v", err)
+	}
+
 	// start Server.
-	ech.Logger.Fatal(ech.Start(":8080"))
+	ech.Logger.Fatal(ech.Start(fmt.Sprintf(":%d", port)))
 }
 
 // hello is Handler.

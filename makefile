@@ -36,5 +36,5 @@ build: test
 
 run: build
 	@echo "--------- running code ---------"
-	@time ./$(binary_name)
+	@export PORT=8080;time ./$(binary_name)
 .PHONY: run
