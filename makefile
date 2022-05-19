@@ -1,5 +1,6 @@
 DEFAULT_BUILD: build
-binary_name=echotry1
+BINARY_NAME=echotry1
+DOCKER_TAG=$(shell git describe --tags)
 
 version:
 	@go version
@@ -31,10 +32,15 @@ test: lint
 .PHONY: test
 
 build: test
-	@CGO_ENABLED=0 go build -o $(binary_name) example.com/echo/try1
+	@CGO_ENABLED=0 go build -o $(BINARY_NAME) example.com/echo/try1
 .PHONY: test
 
 run: build
 	@echo "--------- running code ---------"
-	@export PORT=8080;time ./$(binary_name)
+	@export PORT=8080;time ./$(BINARY_NAME)
 .PHONY: run
+
+image: test
+	@echo "-------- docker image building ------"
+	echo $(DOCKER_TAG)
+	docker build -f build/package/docker/Dockerfile -t $(BINARY_NAME):$(DOCKER_TAG) .
