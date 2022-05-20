@@ -31,7 +31,7 @@ test: lint
 
 build:		## build the binary with CGO_ENABLED=0 option.
 build: test
-	@CGO_ENABLED=0 go build -o $(BINARY_NAME) example.com/echo/try1
+	@CGO_ENABLED=0 go build -o $(BINARY_NAME) github.com/sirijagadeesh/echo-try1
 
 run:		## build the binary and run it.
 run: build

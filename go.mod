@@ -1,4 +1,4 @@
-module example.com/echo/try1
+module github.com/sirijagadeesh/echo-try1
 
 go 1.18
 
