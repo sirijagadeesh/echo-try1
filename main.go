@@ -20,7 +20,7 @@ func main() {
 
 	// routes.
 	ech.GET("/", hello)
-	ech.GET("/{name}", hello)
+	ech.GET("/:name", hello)
 
 	port, err := strconv.Atoi(os.Getenv("PORT"))
 	if err != nil {
@@ -33,10 +33,15 @@ func main() {
 
 // hello is Handler.
 func hello(ctx echo.Context) error {
+	name := ctx.Param("name")
+	if name == "" {
+		name = "ping"
+	}
+
 	response := struct {
-		Ping string `json:"ping"`
+		Ping string `json:"hello"`
 	}{
-		Ping: "Pong",
+		Ping: name,
 	}
 
 	if err := ctx.JSON(http.StatusOK, &response); err != nil {
