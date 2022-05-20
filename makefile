@@ -14,7 +14,7 @@ version:
 	@go version
 
 fmt: version
-	@go fmt ./...
+	@gofumpt -w ./..
 
 vet: fmt
 	@go vet ./...
